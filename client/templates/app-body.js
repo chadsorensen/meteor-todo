@@ -11,14 +11,43 @@ var CONNECTION_ISSUE_TIMEOUT = 5000;
 
 Meteor.startup(function () {
   // set up a swipe left / right handler
-  $(document.body).touchwipe({
-    wipeLeft: function () {
-      Session.set(MENU_KEY, false);
+  console.log('start up');
+  // $(document.body).touchwipe({
+  //   wipeLeft: function () {
+  //     console.log('target', $(this));
+      
+  //     Session.set(MENU_KEY, false);
+  //   },
+  //   wipeRight: function () {
+  //     Session.set(MENU_KEY, true);
+  //   },
+  //   preventDefaultEvents: false
+  // });
+  // $(document.body).touchwipe({
+  //   wipeLeft: function () {
+  //     $('.list-item').addClass('open')
+  //   },
+  //   wipeRight: function () {
+  //     $('.list-item').removeClass('open')
+  //   }
+  // });
+  $(document.body).swipe({
+    swipeLeft:function(event) {
+      $swipe = $(event.target)
+      if($swipe.hasClass('input')) {
+        $container = $swipe.closest('.list-item')
+        $container.addClass('open')
+      }
     },
-    wipeRight: function () {
-      Session.set(MENU_KEY, true);
-    },
-    preventDefaultEvents: false
+    swipeRight:function(event) {
+      $swipe = $(event.target)
+      if($swipe.hasClass('input')) {
+        $container = $swipe.closest('.list-item')
+        if($container.hasClass('open')) {
+          $container.removeClass('open')
+        }
+      }
+    }
   });
 
   // Only show the connection error box if it has been 5 seconds since

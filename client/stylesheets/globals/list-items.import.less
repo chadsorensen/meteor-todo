@@ -10,26 +10,36 @@
   .checkbox {
     .flex(0, 0, 44px);
     cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  &.open {
+    .checkbox {
+      margin-left: -3rem;
+    }
+    .delete-item {
+      .flex(0, 0, 3rem);
+    }
   }
   input[type="text"] { .flex(1); }
-  .delete-item { .flex(0, 0, 3rem); }
+  .delete-item { .flex(0, 0, 0rem); }
 
 
   // Style of list-item children
   input[type="text"] {
     background: transparent;
     cursor: pointer;
-
     &:focus { cursor: text; }
   }
 
   .delete-item {
-    color: @color-medium-rare;
+    display: inline-block; 
+    background: red; color:white;
     line-height: 3rem;
     text-align: center;
+    transition: all 0.3s ease; 
 
-    &:hover { color: @color-primary; }
-    &:active { color: @color-well; }
+    &:hover { background: lighten(red, 20%); }
+    &:active { background: lighten(red, 20%); }
     .icon-trash { font-size: 1.1em; }
   }
 
@@ -44,10 +54,10 @@
       text-decoration: line-through;
     }
 
-    .delete-item { display: inline-block; }
+    // .delete-item { display: inline-block; }
   }
 
   // Editing
-  .delete-item { display: none; }
-  &.editing .delete-item { display: inline-block; }
+  .delete-item { }
+  // &.editing .delete-item { display: inline-block; }
 }
