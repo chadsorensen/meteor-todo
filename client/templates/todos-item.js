@@ -9,13 +9,51 @@ Template.todosItem.helpers({
   }
 });
 
+Template.listItemsToggle.events({
+  'onload': function() {
+    console.log('locked and loaded')
+  },
+  'click .toggle-checked-switch': function(event) {
+    var $switch = $(event.target)
+    var $checkText = $('.check-text span')
+    if ($switch.is(':checked')) {
+      // $listItemsCheckbox.prop("checked", true);
+      // $listItems.addClass('checked')
+      var $unchecked = $('.list-item').not('.checked').find('[type=checkbox]');
+      $unchecked.trigger("click")
+      $checkText.text('Uncheck')
+      // Todos.update(this._id, {$set: {checked: true}});
+      // Lists.update(this._id, {$inc: {incompleteCount: this.incompleteCount }});
+    } else {
+      // $listItemsCheckbox.prop("checked", false);
+      // $listItems.removeClass('checked')
+      $('.list-item.checked [type=checkbox]').trigger("click")
+      // Todos.update(this._id, {$set: {checked: false}});
+      Lists.update(this._id, {$inc: {incompleteCount: -1*(this.incompleteCount) }});
+      $checkText.text('Check')
+    }
+  }
+});
+Template.todosItem.rendered = function() {
+  var total = 0
+  if(!this._rendered) {
+    this._rendered = true;
+
+    var $listCount = $('.title-page .count-list').text();
+    if ($listCount == '0') {
+      $('.toggle-checked-switch').prop('checked', true)
+      $('.check-text span').text('Uncheck')
+    }
+  }
+}
 Template.todosItem.events({
-  'change [type=checkbox]': function(event) {
+  'change .list-item [type=checkbox]': function(event) {
     var checked = $(event.target).is(':checked');
     Todos.update(this._id, {$set: {checked: checked}});
     Lists.update(this.listId, {$inc: {incompleteCount: checked ? -1 : 1}});
+    console.log('this', this)
   },
-  
+
   'focus input[type=text]': function(event) {
     Session.set(EDITING_KEY, this._id);
   },

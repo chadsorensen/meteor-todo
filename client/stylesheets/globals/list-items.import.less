@@ -1,3 +1,7 @@
+.list-items .check-toggle-wrapper .checkbox {
+  flex: 1;
+}
+.list-items .check-toggle-wrapper,
 .list-items .list-item {
   .font-s2;
 
@@ -20,11 +24,13 @@
       .flex(0, 0, 3rem);
     }
   }
+  .check-text { .flex(1); }
   input[type="text"] { .flex(1); }
   .delete-item { .flex(0, 0, 0rem); }
 
 
   // Style of list-item children
+  .check-text,
   input[type="text"] {
     background: transparent;
     cursor: pointer;

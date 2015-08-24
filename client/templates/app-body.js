@@ -11,7 +11,7 @@ var CONNECTION_ISSUE_TIMEOUT = 5000;
 
 Meteor.startup(function () {
   // set up a swipe left / right handler
-  console.log('start up');
+
   // $(document.body).touchwipe({
   //   wipeLeft: function () {
   //     console.log('target', $(this));
